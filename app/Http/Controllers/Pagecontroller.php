@@ -83,7 +83,7 @@ class Pagecontroller extends Controller
         $profile = register_form::where('user_id', $userId)->firstOrFail();
         
 
-        $picture = Profile::where('user_id', $userId)->first(); 
+        $picture = profile::where('user_id', $userId)->first();
     
        
       
@@ -556,8 +556,11 @@ public function studentassessment(Request $request)
     }
 
     public function createassessment()
-    {
-        return view('createassessment');
+    {   
+        $user = Auth::user();
+        $userId = Auth::id();
+        $picture = profile::where('user_id', $userId)->first();
+        return view('createassessment', ['user' => $user, 'picture' => $picture ]);
     }
     public function accountingprofile()
     {
